@@ -121057,7 +121057,7 @@ Ext.cmd.derive(
         model: 'ipgTest.model.Personnel',
         proxy: {
             type: 'ajax',
-            url: '/ipgTest_2.0/app/store/mock.json',
+            url: './mock.json',
             reader: { type: 'json', rootProperty: 'users' },
         },
         autoLoad: !0,
