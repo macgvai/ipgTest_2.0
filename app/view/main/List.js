@@ -6,6 +6,8 @@ Ext.define('ipgTest.view.main.List', {
     xtype: 'mainlist',
     alias: 'main-list-grid',
 
+    requires: ['ipgTest.store.Personnel'],
+
     controller: 'main',
     viewModel: 'main',
 
@@ -20,21 +22,9 @@ Ext.define('ipgTest.view.main.List', {
 
     title: 'ipgTest',
 
-    listeners: {
-        // Обработчик события «изменение выбора в гриде»
-        selectionchange: function () {
-            const vm = this.getViewModel();
-            const selectionRows = this.getSelection();
-
-            // Сетим во вьюмодель признак блокировки кнопок
-            selectionRows.length
-                ? vm.set('buttonDisable', false)
-                : vm.set('buttonDisable', true);
-        },
-    },
-
     // Биндим стор
     bind: {
+        selection: '{selectedRow}',
         store: '{users}',
     },
 
@@ -42,22 +32,25 @@ Ext.define('ipgTest.view.main.List', {
     tbar: [
         {
             text: 'Добавить',
+            xtype: 'button',
             tooltip: 'Добавить',
             handler: 'onAddClick',
         },
         {
             text: 'Копировать',
+            xtype: 'button',
             tooltip: 'Копировать',
             bind: {
-                disabled: '{buttonDisable}',
+                disabled: '{!selectedRow}',
             },
             handler: 'onCopyClick',
         },
         {
             text: 'Удалить',
+            xtype: 'button',
             tooltip: 'Удалить',
             bind: {
-                disabled: '{buttonDisable}',
+                disabled: '{!selectedRow}',
             },
             handler: 'onRemoveClick',
         },

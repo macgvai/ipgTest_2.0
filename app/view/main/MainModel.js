@@ -15,7 +15,6 @@ Ext.define('ipgTest.view.main.MainModel', {
     },
 
     data: {
-        // Признак блокировки кнопок
-        buttonDisable: true,
+        selectedRow: null,
     },
 });

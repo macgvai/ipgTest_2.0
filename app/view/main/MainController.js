@@ -23,30 +23,38 @@ Ext.define('ipgTest.view.main.MainController', {
     onCopyClick: function () {
         const view = this.getView();
         const store = view.getStore();
-        const selRow = view.getSelection()[0];
-        const idx = store.indexOf(selRow);
-        const data = selRow && selRow.getData();
+        const vm = this.getViewModel();
+        const selectedRow = vm.get('selectedRow');
+        const idx = store.indexOf(selectedRow);
+        const data = selectedRow && selectedRow.getData();
         const Model = store.getModel();
         const rec = new Model();
 
         delete data.id;
         rec.set(data);
-        view.store.insert(idx + 1, rec);
+        store.insert(idx + 1, rec);
     },
 
     // Удаляем выделенную строку
     onRemoveClick: function () {
-        const view = this.getView();
-        const selRow = view.getSelection()[0];
+        const vm = this.getViewModel();
+        const selectedRow = vm.get('selectedRow');
 
-        selRow.drop();
+        selectedRow.drop();
     },
 
-    // Записываем изменения в local store при нажатии enter или tab во время редактирования
+    /**
+     * Записываем изменения в localStorage при нажатии enter или tab во время редактирования
+     * @param {Ext.form.field} field редактируемое поле
+     * @param {Ext.event.Event} event событие
+     */
     sendToLocalStorage: function (field, event) {
         const ENTER = 13;
         const TAB = 9;
-        if (event.getKey() === ENTER || event.getKey() === TAB) {
+        if (
+            field.wasDirty &&
+            (event.getKey() === ENTER || event.getKey() === TAB)
+        ) {
             const name = field.getName();
             const value = field.getValue();
 
