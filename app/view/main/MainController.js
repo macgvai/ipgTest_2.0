@@ -26,7 +26,7 @@ Ext.define('ipgTest.view.main.MainController', {
         const vm = view.getViewModel();
         const selectedRow = vm.get('selectedRow');
         const idx = store.indexOf(selectedRow);
-        const data = selectedRow && selectedRow.getData();
+        const data = selectedRow.getData();
         const Model = store.getModel();
         const rec = new Model();
 
