@@ -16,14 +16,14 @@ Ext.define('ipgTest.view.main.MainController', {
         const Model = store.getModel();
         const rec = new Model();
 
-        view.store.insert(idx, rec);
+        store.insert(idx, rec);
     },
 
     // Копируем выделенную строку
     onCopyClick: function () {
         const view = this.getView();
         const store = view.getStore();
-        const vm = this.getViewModel();
+        const vm = view.getViewModel();
         const selectedRow = vm.get('selectedRow');
         const idx = store.indexOf(selectedRow);
         const data = selectedRow && selectedRow.getData();
@@ -51,6 +51,7 @@ Ext.define('ipgTest.view.main.MainController', {
     sendToLocalStorage: function (field, event) {
         const ENTER = 13;
         const TAB = 9;
+
         if (
             field.wasDirty &&
             (event.getKey() === ENTER || event.getKey() === TAB)
